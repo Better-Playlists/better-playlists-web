@@ -1,0 +1,46 @@
+---
+import Layout from '../layouts/Page.astro'
+import Container from '../components/Container.astro';
+import PlaylistForm from '../components/PlaylistForm.vue';
+
+const seo = {
+  title: 'Better Playlists',
+  description: 'Better Playlists for Spotify',
+}
+---
+
+<style>
+  .hero__article {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+    text-align: center;
+  }
+
+  .hero__article p {
+    color: #999;
+  }
+
+  .subtitle span {
+    color: #CCC;
+  }
+</style>
+
+<Layout seo={seo}>
+  <Container narrow>
+    <article class="hero__article">
+      <p class="fade-in subtitle">
+        Better Playlists for Spotify<br/>
+        <span>using harmonic sorting with camelot wheel</span>
+      </p>
+      <PlaylistForm client:only />
+    </article>
+  </Container>
+</Layout>
+
+<script>
+// Majority of the functionality can be found in components/PlaylistForm.vue
+</script>
+
