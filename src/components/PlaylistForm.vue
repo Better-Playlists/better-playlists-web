@@ -119,7 +119,7 @@ input:focus {
 }
 
 .url__form :global(.btn) {
-  margin-left: 1rem;
+  margin-left: 0;
 }
 
 .error-text {
@@ -165,6 +165,10 @@ a {
 
   div.inner-btn {
     width: 20%;
+  }
+
+  .btn {
+    margin-left: 1rem;
   }
 }
 </style>
