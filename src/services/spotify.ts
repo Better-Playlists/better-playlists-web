@@ -73,10 +73,6 @@ export function useSpotify() {
     const playlistUrl = localStorage.getItem("playlistUrl");
     if (playlistUrl) {
       const result = await makeBetterPlaylist(playlistUrl, store.access_token);
-      if (result.sorted_playlist) {
-        store.sorted_playlist = result.sorted_playlist;
-      }
-      localStorage.removeItem("playlistUrl");
     }
   };
 
@@ -175,6 +171,12 @@ export function useSpotify() {
       );
 
       const result = await response.json();
+
+      if (result.sorted_playlist) {
+        store.sorted_playlist = result.sorted_playlist;
+        localStorage.removeItem("playlistUrl");
+      }
+
       return result;
     } catch (error) {
       console.error("Error: ", error);

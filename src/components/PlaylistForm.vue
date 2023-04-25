@@ -31,7 +31,6 @@ import { useSpotify } from '../services/spotify';
 const spotify = useSpotify();
 
 const playlistUrl = ref("");
-const isSuccess = ref(false);
 const isError = ref(false);
 
 const queryString = window.location.search;
@@ -66,10 +65,6 @@ const onButtonClick = async () => {
     spotify.redirectToSpotifyAuthorizeEndpoint();
   } else {
     const response = await spotify.makeBetterPlaylist(playlistUrl.value, store.access_token);
-    if (response.message === "Success") {
-      isSuccess.value = true;
-      store.sorted_playlist = response.sorted_playlist;
-    }
   }
 }
 
