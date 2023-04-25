@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/5d4a6000-51b2-42c8-9177-a04ed8a8b041/deploy-status)](https://app.netlify.com/sites/betterplaylists/deploys)
+
 ## Local Development
 
 ```sh
@@ -12,4 +14,4 @@ npm run build
 
 ## Deploy
 
-Astro has [an in-depth guide](https://docs.astro.build/en/guides/deploy/) on how to deploy an Astro project to each service.
+Automatically handled by GitHub Actions.
