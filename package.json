@@ -11,6 +11,7 @@
   "devDependencies": {
     "@astrojs/sitemap": "^1.0.0",
     "@astrojs/vue": "^2.1.1",
+    "@vitejs/plugin-basic-ssl": "^1.0.1",
     "astro": "^2.3.0",
     "astro-icon": "^0.7.3",
     "vue": "^3.2.47"

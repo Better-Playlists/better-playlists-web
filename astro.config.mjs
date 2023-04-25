@@ -1,6 +1,7 @@
-import { defineConfig } from 'astro/config';
-import { settings } from './src/data/settings';
+import { defineConfig } from "astro/config";
+import { settings } from "./src/data/settings";
 import sitemap from "@astrojs/sitemap";
+import basicSsl from "@vitejs/plugin-basic-ssl";
 
 import vue from "@astrojs/vue";
 
@@ -10,7 +11,8 @@ export default defineConfig({
   integrations: [sitemap(), vue()],
   vite: {
     ssr: {
-      external: ["svgo"]
-    }
-  }
+      external: ["svgo"],
+    },
+    plugins: [basicSsl()],
+  },
 });

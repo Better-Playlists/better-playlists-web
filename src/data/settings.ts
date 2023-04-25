@@ -6,5 +6,6 @@ export const settings = {
 
   // Spotify
   client_id: "c27befa8e0684df2987e7357fb835337",
-  redirect_uri: import.meta.env.DEV ? "http://localhost:3000" : "https://betterplaylists.netlify.app",
+  // redirect_uri must match the uri exactly in Spotify dashboard
+  redirect_uri: import.meta.env.DEV ? "https://localhost:3000" : "https://betterplaylists.netlify.app",
 };
