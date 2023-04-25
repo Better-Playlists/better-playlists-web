@@ -16,7 +16,7 @@
   </Transition>
 
   <Transition>
-    <div v-if="store.sorted_playlist" class="fade-in success-text">
+    <div v-if="store.sorted_playlist" class="success-text">
       All done! Your <a :href="store.sorted_playlist">playlist</a> is now better!
     </div>
   </Transition>
@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { store } from "../data/store";
 import { useSpotify } from '../services/spotify';
 
@@ -34,13 +34,6 @@ const playlistUrl = ref("");
 const isSuccess = ref(false);
 const isError = ref(false);
 
-let isLoggedIn = false;
-
-// Restore tokens from localStorage
-let access_token = localStorage.getItem('access_token') || null;
-let refresh_token = localStorage.getItem('refresh_token') || null;
-let expires_at = localStorage.getItem('expires_at') || null;
-
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 
@@ -49,13 +42,13 @@ const code = urlParams.get('code');
 if (code) {
   // we have received the code from spotify and will exchange it for a access_token
   spotify.exchangeToken(code);
-} else if (access_token && refresh_token && expires_at) {
+} else if (store.access_token && store.refresh_token && store.expires_at) {
   // we are already authorized and reload our tokens from localStorage
-  isLoggedIn = true;
+  store.isLoggedIn = true;
   spotify.getUserData();
 } else {
   // user is logged out
-  isLoggedIn = false;
+  store.isLoggedIn = false;
 }
 
 const onButtonClick = async () => {
@@ -69,16 +62,24 @@ const onButtonClick = async () => {
     return false;
   }
 
-  if (!isLoggedIn) {
+  if (!store.isLoggedIn) {
     spotify.redirectToSpotifyAuthorizeEndpoint();
   } else {
-    const response = await spotify.makeBetterPlaylist(playlistUrl.value, access_token);
+    const response = await spotify.makeBetterPlaylist(playlistUrl.value, store.access_token);
     if (response.message === "Success") {
       isSuccess.value = true;
       store.sorted_playlist = response.sorted_playlist;
     }
   }
 }
+
+watch(store, () => {
+  if (store.access_token && store.refresh_token && store.expires_at) {
+    store.isLoggedIn = true;
+  } else {
+    store.isLoggedIn = false;
+  }
+})
 </script>
 
 <style scoped>

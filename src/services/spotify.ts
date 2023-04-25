@@ -4,11 +4,6 @@ import { store } from "../data/store";
 const client_id = settings.client_id;
 const redirect_uri = settings.redirect_uri;
 
-// Restore tokens from localStorage
-let access_token = localStorage.getItem("access_token") || null;
-let refresh_token = localStorage.getItem("refresh_token") || null;
-let expires_at = localStorage.getItem("expires_at") || null;
-
 export function useSpotify() {
   const exchangeToken = async (code: string) => {
     const code_verifier = localStorage.getItem("code_verifier");
@@ -39,7 +34,7 @@ export function useSpotify() {
   const getUserData = async () => {
     fetch("https://api.spotify.com/v1/me", {
       headers: {
-        Authorization: "Bearer " + access_token,
+        Authorization: "Bearer " + store.access_token,
       },
     })
       .then(async (response) => {
@@ -62,22 +57,22 @@ export function useSpotify() {
   };
 
   const processTokenResponse = async (data) => {
-    access_token = data.access_token;
-    refresh_token = data.refresh_token;
+    store.access_token = data.access_token;
+    store.refresh_token = data.refresh_token;
 
     const t = new Date();
-    expires_at = t.setSeconds(t.getSeconds() + data.expires_in).toString();
+    store.expires_at = t.setSeconds(t.getSeconds() + data.expires_in).toString();
 
-    localStorage.setItem("access_token", access_token);
-    localStorage.setItem("refresh_token", refresh_token);
-    localStorage.setItem("expires_at", expires_at);
+    localStorage.setItem("access_token", store.access_token);
+    localStorage.setItem("refresh_token", store.refresh_token);
+    localStorage.setItem("expires_at", store.expires_at);
 
     // load data of logged in user
     getUserData();
 
     const playlistUrl = localStorage.getItem("playlistUrl");
     if (playlistUrl) {
-      const result = await makeBetterPlaylist(playlistUrl, access_token);
+      const result = await makeBetterPlaylist(playlistUrl, store.access_token);
       if (result.sorted_playlist) {
         store.sorted_playlist = result.sorted_playlist;
       }
@@ -86,6 +81,7 @@ export function useSpotify() {
   };
 
   const refreshToken = () => {
+    const refresh_token = store.refresh_token;
     fetch("https://accounts.spotify.com/api/token", {
       method: "POST",
       headers: {
@@ -185,10 +181,20 @@ export function useSpotify() {
     }
   };
 
+  const restoreFromLocalStorage = () => {
+    // Restore tokens from localStorage
+    store.access_token = localStorage.getItem("access_token") || null;
+    store.refresh_token = localStorage.getItem("refresh_token") || null;
+    store.expires_at = localStorage.getItem("expires_at") || null;
+  };
+
+  restoreFromLocalStorage();
+
   return {
     exchangeToken,
     getUserData,
     makeBetterPlaylist,
     redirectToSpotifyAuthorizeEndpoint,
+    restoreFromLocalStorage,
   };
 }
