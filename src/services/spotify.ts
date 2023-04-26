@@ -46,7 +46,7 @@ export function useSpotify() {
         }
       })
       .then((data) => {
-        console.log(data);
+        store.username = data.id;
         return data;
       })
       .catch((error) => {

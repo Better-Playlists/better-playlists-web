@@ -1,5 +1,5 @@
 ---
-import Logo from "./Logo.astro";
+import Logo from "./Logo.vue";
 ---
 
 <style>
@@ -12,5 +12,5 @@ import Logo from "./Logo.astro";
 </style>
 
 <header>
-  <Logo />
+  <Logo client:only />
 </header>
