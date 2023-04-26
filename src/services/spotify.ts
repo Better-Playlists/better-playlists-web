@@ -6,6 +6,7 @@ const redirect_uri = settings.redirect_uri;
 
 export function useSpotify() {
   const exchangeToken = async (code: string) => {
+    store.isPending = true;
     const code_verifier = localStorage.getItem("code_verifier");
 
     fetch("https://accounts.spotify.com/api/token", {
@@ -177,9 +178,11 @@ export function useSpotify() {
         localStorage.removeItem("playlistUrl");
       }
 
+      store.isPending = false;
       return result;
     } catch (error) {
       console.error("Error: ", error);
+      store.isPending = false;
     }
   };
 

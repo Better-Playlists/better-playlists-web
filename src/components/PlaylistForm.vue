@@ -6,21 +6,28 @@
           required />
       </div>
       <div class="inner-btn">
-        <button class="btn" type="button" @click="onButtonClick()">Make it Better!</button>
+        <button class="btn" type="button" @click="onButtonClick()" :disabled="store.isPending">
+          <span>Make it Better!</span>
+        </button>
       </div>
     </div>
   </form>
 
-  <Transition>
-    <div v-if="isError" class="error-text">URL Invalid or Missing.</div>
-  </Transition>
+  <div class="status-message">
+    <Transition>
+      <div v-if="isError" class="error-text">URL Invalid or Missing.</div>
+    </Transition>
 
-  <Transition>
-    <div v-if="store.sorted_playlist" class="success-text">
-      All done! Your <a :href="store.sorted_playlist">playlist</a> is now better!
-    </div>
-  </Transition>
+    <Transition>
+      <div v-if="store.sorted_playlist" class="success-text">
+        All done! Your <a :href="store.sorted_playlist">playlist</a> is now better!
+      </div>
+    </Transition>
 
+    <Transition>
+      <div v-if="store.isPending" class="lds-dual-ring"></div>
+    </Transition>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -51,6 +58,7 @@ if (code) {
 }
 
 const onButtonClick = async () => {
+  store.isPending = true;
   store.sorted_playlist = "";
   const isUrlValid = playlistUrl.value.startsWith("https://open.spotify.com/playlist/");
   if (playlistUrl.value.length > 0 && isUrlValid) {
@@ -58,6 +66,7 @@ const onButtonClick = async () => {
     isError.value = false;
   } else {
     isError.value = true;
+    store.isPending = false;
     return false;
   }
 
@@ -129,6 +138,8 @@ input:focus {
 
 .success-text {
   color: #999;
+  position: relative;
+  top: 0px;
 }
 
 a {
@@ -158,6 +169,47 @@ a {
   opacity: 0;
 }
 
+.status-message {
+  position: relative;
+  top: -10px;
+  height: 48px;
+  width: 100%;
+}
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  position: absolute;
+  top: 10px;
+  left: 48%;
+}
+
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 6px solid #999;
+  border-color: #999 transparent #999 transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+
+.btn[disabled] {
+  cursor: wait;
+}
+
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 @media (min-width: 768px) {
   div.inner-input {
     width: 80%;
@@ -169,6 +221,10 @@ a {
 
   .btn {
     margin-left: 1rem;
+  }
+
+  .lds-dual-ring {
+    left: 48.5%;
   }
 }
 </style>
