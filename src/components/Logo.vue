@@ -42,7 +42,7 @@ const username = ref(store.username)
 
 .logo-container {
   display: flex;
-  width: 80%;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
