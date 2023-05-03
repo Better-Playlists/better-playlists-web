@@ -39,4 +39,4 @@ If you wish to revoke access to your Spotify account, please follow these steps:
 
 1. Go to [https://www.spotify.com/account/apps/](https://www.spotify.com/account/apps/)
 2. Find "Better Playlists"
-3. Click "Revoke Access"
+3. Click "Remove Access"
