@@ -37,6 +37,6 @@ We reserve the right to update or modify this Privacy Policy at any time without
 
 If you wish to revoke access to your Spotify account, please follow these steps:
 
-1. Go to [https://www.spotify.com/us/account/apps/](https://www.spotify.com/us/account/apps/)
+1. Go to [https://www.spotify.com/account/apps/](https://www.spotify.com/account/apps/)
 2. Find "Better Playlists"
 3. Click "Revoke Access"
