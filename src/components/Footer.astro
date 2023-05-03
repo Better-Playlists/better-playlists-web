@@ -1,11 +1,12 @@
 ---
-import { Icon} from 'astro-icon';
-import { socials} from '../data/socials'
+import { Icon } from "astro-icon";
+import { socials } from "../data/socials";
 ---
 
 <style>
   footer {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 2rem 0;
@@ -20,16 +21,25 @@ import { socials} from '../data/socials'
   .footer__socials li a {
     display: flex;
   }
+
+  a {
+    font-size: 14px;
+  }
 </style>
 
 <footer>
-  <ul class="footer__socials">
-    {socials.map((social) => (
-      <li class="social__link">
-        <a href={social.url} target="_blank" rel="noopener noreferrer">
-          <Icon name={social.icon} width="36px" height="36px" />
-        </a>
-      </li>
-    ))}
-  </ul>
+  <div><a href="/privacypolicy">Privacy Policy</a></div>
+  <div>
+    <ul class="footer__socials">
+      {
+        socials.map((social) => (
+          <li class="social__link">
+            <a href={social.url} target="_blank" rel="noopener noreferrer">
+              <Icon name={social.icon} width="36px" height="36px" />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
 </footer>

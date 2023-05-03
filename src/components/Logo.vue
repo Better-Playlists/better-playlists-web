@@ -1,15 +1,17 @@
 <template>
   <div class="logo-container">
-    <div class="logo">
-      <div class="logo-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="56px" height="56px" viewBox="0 0 24 24">
-          <path fill="orange"
-            d="M16 20q-1.25 0-2.125-.875T13 17q0-1.25.875-2.125T16 14q.275 0 .525.038T17 14.2V7q0-.425.288-.713T18 6h3q.425 0 .713.288T22 7q0 .425-.288.713T21 8h-2v9q0 1.25-.875 2.125T16 20ZM4 8q-.425 0-.713-.288T3 7q0-.425.288-.713T4 6h10q.425 0 .713.288T15 7q0 .425-.288.713T14 8H4Zm0 4q-.425 0-.713-.288T3 11q0-.425.288-.713T4 10h10q.425 0 .713.288T15 11q0 .425-.288.713T14 12H4Zm0 4q-.425 0-.713-.288T3 15q0-.425.288-.713T4 14h6q.425 0 .713.288T11 15q0 .425-.288.713T10 16H4Z">
-          </path>
-        </svg>
+    <a href="/">
+      <div class="logo">
+        <div class="logo-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="56px" height="56px" viewBox="0 0 24 24">
+            <path fill="orange"
+              d="M16 20q-1.25 0-2.125-.875T13 17q0-1.25.875-2.125T16 14q.275 0 .525.038T17 14.2V7q0-.425.288-.713T18 6h3q.425 0 .713.288T22 7q0 .425-.288.713T21 8h-2v9q0 1.25-.875 2.125T16 20ZM4 8q-.425 0-.713-.288T3 7q0-.425.288-.713T4 6h10q.425 0 .713.288T15 7q0 .425-.288.713T14 8H4Zm0 4q-.425 0-.713-.288T3 11q0-.425.288-.713T4 10h10q.425 0 .713.288T15 11q0 .425-.288.713T14 12H4Zm0 4q-.425 0-.713-.288T3 15q0-.425.288-.713T4 14h6q.425 0 .713.288T11 15q0 .425-.288.713T10 16H4Z">
+            </path>
+          </svg>
+        </div>
+        <div class="logo-text">Better Playlists</div>
       </div>
-      <div class="logo-text">Better Playlists</div>
-    </div>
+    </a>
     <Transition>
       <div class="login-status" v-if="store.username">
         <div class="spotify-logo">
@@ -52,6 +54,10 @@ const username = ref(store.username)
   display: flex;
   align-items: center;
   margin: auto;
+}
+
+.logo-container a {
+  text-decoration: none;
 }
 
 .logo-icon {

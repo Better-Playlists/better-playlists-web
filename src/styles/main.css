@@ -129,6 +129,35 @@ li {
   opacity: 0;
 }
 
+/** Markdown page **/
+
+.markdown {
+  max-width: 785px;
+  margin: 0 auto;
+  color: #777;
+}
+
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown p {
+  max-width: 100%;
+  margin-bottom: 20px;
+}
+
+.markdown h1 {
+  font-size: 25px;
+}
+
+.markdown h2 {
+  font-size: 20px;
+}
+
+.markdown p,
+.markdown li {
+  font-size: 16px;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .fade-in[data-state="visible"] {
     transition: transform 700ms cubic-bezier(0.42, 0, 0.32, 1.17),
