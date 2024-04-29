@@ -105,6 +105,13 @@ export function useSpotify() {
 
   const handleError = (error) => {
     console.error(error);
+
+    if (error.error.error === "invalid_grant") {
+      // refresh token most likely revoked and we need to re-authorize
+      // clear local storage which will reset our logged in status and prompt user to re-authorize
+      // next time they click on the "make it better" button
+      localStorage.clear();
+    }
   };
 
   const generateRandomString = (length) => {
